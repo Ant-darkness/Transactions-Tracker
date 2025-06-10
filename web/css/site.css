@@ -1,0 +1,94 @@
+.site-dashboard .card {
+    margin-bottom: 20px;
+    transition: transform 0.3s;
+}
+.site-dashboard .card:hover {
+    transform: scale(1.05);
+}
+.profile-picture img {
+    border: 2px solid #ddd;
+    padding: 5px;
+}
+.transaction-service .card {
+    margin-bottom: 20px;
+}
+.transaction-service h2 {
+    margin-top: 30px;
+}
+
+.site-dashboard .card, .transaction-service .card {
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 10px;
+}
+.site-dashboard .card:hover, .transaction-service .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.card.mpesa { background-color: #e8f5e9; } /* M-Pesa: Light Green */
+.card.halopesa { background-color: #fffde7; } /* Halopesa: Light Yellow */
+.card.mix-by-yas { background-color: #e3f2fd; } /* Mix by Yas: Light Blue */
+.card.airtel-money { background-color: #ffebee; } /* Airtel Money: Light Red */
+.card.about { background-color: #f5f5f5; } /* About: Light Gray */
+.card.logout { background-color: #fce4ec; } /* Logout: Light Pink */
+.profile-picture img {
+    border: 2px solid #ddd;
+    padding: 5px;
+    transition: transform 0.3s;
+}
+.profile-picture img:hover {
+    transform: scale(1.1);
+}
+.transaction-service h2 {
+    margin-top: 30px;
+    color: #333;
+}
+.fa-icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.site-index {
+    background: #5db2af;
+    font-family: 'Segou UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.site-index h1 {
+    font-size: 2.5rem;
+    color: #73322e;
+    margin-bottom: 20px;
+}
+
+.site-index p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 20px;
+}
+
+.site-index a {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #007bff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    margin: 5px;
+    display: inline-block;
+    transition: background 0.3s ease;
+}
+
+.site-index a:hover {
+    background-color: #0056b3;
+
+}
+
+.custom-icon {
+    width: 200px;
+    height: 100px;
+}
+
