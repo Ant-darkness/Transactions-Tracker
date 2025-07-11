@@ -26,4 +26,56 @@ class Transaction extends ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+
+
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->created_at = date('Y-m-d H:i:s');
+            }
+            return true;
+        }
+        return false;
+    }
+
+    
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $date = date('Y-m-d', strtotime($this->created_at));
+        $userId = $this->user_id;
+        $service = $this->service;
+
+        $summary = DailySummary::findOne([
+            'user_id' => $userId,
+            'service' => $service,
+            'date' => $date,
+        ]);
+
+        
+        if (!$summary) {
+            $summary = new DailySummary([
+                'user_id' => $userId,
+                'service' => $service,
+                'date' => $date,
+                'total_received' => 0,
+                'total_sent' => 0,
+            ]);
+        }
+
+        
+        if ($this->type === 'Received') {
+            $summary->total_received += $this->amount;
+        } elseif ($this->type === 'Sent') {
+            $summary->total_sent += $this->amount;
+        }
+
+        $summary->save(false); 
+    }
+
+    
+
 }

@@ -5,6 +5,7 @@ use Yii;
 use yii\web\Controller;
 use app\models\User;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -88,26 +89,36 @@ class SiteController extends Controller
         Yii::$app->user->logout();
         return $this->redirect(['index']);
     }
-
-    public function actionProfile()
+public function actionProfile()
 {
     $model = User::findOne(Yii::$app->user->identity->id);
+
     if ($model->load(Yii::$app->request->post())) {
         $model->profilePictureFile = UploadedFile::getInstance($model, 'profilePictureFile');
-        if ($model->profilePictureFile && $model->uploadProfilePicture()) {
-            if ($model->save(false)) {
-                Yii::$app->session->setFlash('success', 'Profile picture updated successfully.');
+        if ($model->profilePictureFile) {
+            if ($model->uploadProfilePicture()) {
+                // File is saved successfully, no need to re-validate
             } else {
-                Yii::$app->session->setFlash('error', 'Failed to update profile picture.');
+                Yii::$app->session->setFlash('error', 'Failed to upload profile picture.');
             }
         }
-        return $this->redirect(['dashboard']);
+        if ($model->save()) {
+            Yii::$app->session->setFlash('success', 'Profile updated successfully.');
+        } else {
+            Yii::$app->session->setFlash('error', 'Failed to update profile.');
+        }
+        return $this->refresh();
     }
-    return $this->render('profile', ['model' => $model]);
+
+    return $this->render('profile', [
+        'model' => $model,
+    ]);
 }
 
 public function actionAbout()
 {
     return $this->render('about');
 }
+
+
 }

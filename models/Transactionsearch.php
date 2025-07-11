@@ -1,6 +1,7 @@
 <?php
 namespace app\models;
 
+
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -16,30 +17,53 @@ class TransactionSearch extends Transaction
         ];
     }
 
-    public function search($params, $service)
+    public function search($params, $service) 
     {
-        $query = Transaction::find()->where(['user_id' => \Yii::$app->user->identity->id, 'service' => $service]);
+        $query = Transaction::find()->where(['user_id' => \Yii::$app->user->identity->id,
+        'service' => $service,])->orderBy(['transaction_date' => SORT_DESC]);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $defaultLimit = 5;
 
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
+        $this->load($params);
+
+        $dateFilterApplied = !empty($this->date_from) || !empty($this->date_to);
+
+        if (!$dateFilterApplied) {
+            $query->limit($defaultLimit);
         }
 
-        if ($this->type) {
+        
+
+        if (!$this->validate()) {
+           return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => false,
+           ]);
+        }
+
+        if (!empty($this->type)) {
             $query->andWhere(['type' => $this->type]);
         }
 
-        if ($this->date_from) {
-            $query->andWhere(['>=', 'transaction_date', $this->date_from]);
+        if (!empty($this->date_from)) {
+
+            $query->andWhere(['>=', 'DATE(transaction_date)', $this->date_from]);
         }
 
-        if ($this->date_to) {
-            $query->andWhere(['<=', 'transaction_date', $this->date_to]);
+        if (!empty($this->date_to)) {
+            $query->andWhere(['<=', 'DATE(transaction_date)', $this->date_to]);
+        }
+        
+        if (!$dateFilterApplied) {
+            $today = date('Y-m-d');
+            $query->andWhere(['=', 'DATE(transaction_date)', $today]);
         }
 
-        return $dataProvider;
+        return new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => false,
+           ]);
     }
+
+    
 }

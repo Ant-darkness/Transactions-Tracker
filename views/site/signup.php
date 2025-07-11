@@ -2,27 +2,27 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 ?>
-<div class="site-signup">
-    <h1>Sign Up</h1>
+<div class="custom-signup" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px;">
+    <h1 style="color: #e74c3c; text-align: center;">Create Your Account</h1>
     <?php if (Yii::$app->session->hasFlash('success')): ?>
-        <div class="alert alert-success">
+        <div class="alert alert-success text-center">
             <?= Yii::$app->session->getFlash('success') ?>
         </div>
     <?php endif; ?>
     <?php if (Yii::$app->session->hasFlash('error')): ?>
-        <div class="alert alert-danger">
+        <div class="alert alert-danger text-center">
             <?= Yii::$app->session->getFlash('error') ?>
         </div>
     <?php endif; ?>
-    <div class="row">
-        <div class="col-lg-5">
+    <div class="row justify-content-center"> 
+        <div class="col-md-6">
             <?php $form = ActiveForm::begin(['id' => 'signup-form']); ?>
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-                <?= $form->field($model, 'email')->textInput() ?>
-                <?= $form->field($model, 'password_hash')->passwordInput() ?>
-                <?= $form->field($model, 'retype_password')->passwordInput() ?>
-                <div class="form-group">
-                    <?= Html::submitButton('Sign Up', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'class' => 'form-control', 'placeholder' => 'Username']) ?>
+                <?= $form->field($model, 'email')->textInput(['class' => 'form-control', 'placeholder' => 'Email']) ?>
+                <?= $form->field($model, 'password_hash')->passwordInput(['class' => 'form-control', 'placeholder' => 'Password']) ?>
+                <?= $form->field($model, 'retype_password')->passwordInput(['class' => 'form-control', 'placeholder' => 'Re-enter Password']) ?>
+                <div class="form-group text-center">
+                    <?= Html::submitButton('Sign Up', ['class' => 'btn btn-danger btn-lg', 'name' => 'signup-button']) ?>
                 </div>
             <?php ActiveForm::end(); ?>
         </div>

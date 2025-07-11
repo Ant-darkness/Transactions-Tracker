@@ -1,13 +1,15 @@
 <?php
 namespace app\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\web\UploadedFile;
 
 class User extends ActiveRecord implements IdentityInterface
 {
-    public $profilePictureFile; // Temporary attribute for file upload
+    public $profilePictureFile;
+    public $file;  // Temporary attribute for file upload
     public $retype_password;    // Temporary attribute for password retype
 
     public static function tableName()
@@ -24,7 +26,7 @@ class User extends ActiveRecord implements IdentityInterface
         [['username', 'email'], 'unique'],
         [['created_at', 'updated_at'], 'safe'],
         [['profile_picture'], 'string', 'max' => 255],
-        [['profilePictureFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
+        [['profilePictureFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg, png, jpeg', 'maxSize' => 10 * 1024 * 1024],
         [['retype_password'], 'string'], // Tumia hii tu kama placeholder
     ];
 }
@@ -82,13 +84,17 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function uploadProfilePicture()
     {
-        if ($this->profilePictureFile instanceof UploadedFile) {
-            $fileName = 'uploads/profiles/' . Yii::$app->security->generateRandomString() . '.' . $this->profilePictureFile->extension;
-            if ($this->profilePictureFile->saveAs($fileName)) {
+        if ($this->profilePictureFile) {
+            $fileName = 'uploads/profile/' . Yii::$app->security->generateRandomString() . '.' . $this->profilePictureFile->extension;
+           
+             if ($this->profilePictureFile->saveAs($fileName)) {
                 $this->profile_picture = $fileName;
                 return true;
+             }
+
+             return false;
             }
-        }
-        return false;
+
+            return true;
     }
 }

@@ -16,6 +16,7 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link rel="stylesheet" href="<?= Yii::$app->request->baseUrl ?>/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
@@ -24,10 +25,11 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'TRANSACTIONS TRACKER',
+        'brandLabel' => Html::img(Yii::$app->request->baseUrl . '/images/icon2.png', ['alt' => 'logo', 'class' => 'custom-icon']),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-dark bg-dark navbar-expand-md',
+            
+             'class' => 'navbar-dark bg-dark navbar-expand-md',
         ],
     ]);
     $menuItems = [];
@@ -45,7 +47,41 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <?php
+    
+        $service = isset($this->params['service']) ? $this->params['service'] : Yii::$app->request->get('service');
+        $bodyClass = "";
+        $textClass = "";
+
+        switch(strtolower($service)) {
+            case 'm-pesa':
+                $bodyClass = 'mpesa-bg';
+                $textClass = 'mpesa-text';
+                break;
+
+            case 'halopesa':
+                $bodyClass = 'halopesa-bg';
+                $textClass = 'halopesa-text';
+                break;
+
+            case 'mix-by-yas':
+                $bodyClass = 'mix-bg';
+                $textClass = 'mix-text';
+                break;
+
+            case 'airtel-money':
+                $bodyClass = 'airtel-bg';
+                $textClass = 'airtel-text';
+                break;
+
+            default:
+                $bodyClass = 'default-bg';
+                $textClass = 'default-text';
+        }
+        ?>
+
+    <div class="container <?= $bodyClass ?> <?= $textClass ?>">
+        
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -55,9 +91,11 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="float-left">&copy; TRANSACTIONS TRACKER <?= date('Y') ?></p>
+        <p class="float-left"><img src="<?= Yii::$app->request->baseUrl ?>/images/icon2.png" class="custom-icon" alt="logo" /></p>
     </div>
 </footer>
+
+
 
 <?php $this->endBody() ?>
 </body>

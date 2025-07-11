@@ -1,0 +1,80 @@
+
+.site-index2 {
+  background: #e72569;
+  font-family: "Segou UI", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 800px;
+  margin: 10px auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+
+.site-index2 p {
+  font-size: 1.2rem;
+  color: #5242e2;
+  margin-top: 20px;
+}
+
+.site-index2 a {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #007bff;
+  padding: 10px 18px;
+  border-radius: 6px;
+  margin: 5px;
+  display: inline-block;
+  transition: background 0.3s ease;
+}
+
+.site-index2 a:hover {
+  background-color: #0056b3;
+}
+
+
+.mpesa-bg {
+    background-color: #82e152;
+    padding: 20px;
+    border-radius: 8px;
+}
+.mpesa-text {
+    color: #bd0000;
+}
+
+.halopesa-bg {
+    background-color: orange;
+    padding: 20px;
+    border-radius: 8px;
+}
+.halopesa-text {
+    color: #a44201;
+}
+
+.mix-bg {
+    background-color: #2b6ed2;
+    padding: 20px;
+    border-radius: 8px;
+}
+.mix-text {
+    color: #ece9ef;
+}
+
+.airtel-bg {
+    background-color: #a350de;
+    padding: 20px;
+    border-radius: 8px;
+}
+.airtel-text {
+    color: #cc0000;
+}
+
+.default-bg {
+    background-color: #f3eeee;
+}
+.default-text {
+    color: #2700b2;
+}
+.site-about p {
+    color: red;
+}

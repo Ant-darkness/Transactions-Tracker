@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\AppAsset;
 use yii\bootstrap4\ActiveForm;
 ?>
 <div class="site-login">

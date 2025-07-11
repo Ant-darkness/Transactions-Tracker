@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 ?>
 <div class="site-profile">
-    <h1>Update Profile Picture</h1>
+    <h1>Profile</h1>
     <?php if (Yii::$app->session->hasFlash('success')): ?>
         <div class="alert alert-success">
             <?= Yii::$app->session->getFlash('success') ?>
@@ -14,14 +14,12 @@ use yii\bootstrap4\ActiveForm;
             <?= Yii::$app->session->getFlash('error') ?>
         </div>
     <?php endif; ?>
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'profile-form', 'options' => ['enctype' => 'multipart/form-data']]); ?>
-                <?= $form->field($model, 'profilePictureFile')->fileInput() ?>
-                <div class="form-group">
-                    <?= Html::submitButton('Upload Picture', ['class' => 'btn btn-primary']) ?>
-                </div>
-            <?php ActiveForm::end(); ?>
-        </div>
-    </div>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+        <?= $form->field($model, 'username')->textInput(['readonly' => true]) ?>
+        <?= $form->field($model, 'email')->textInput(['readonly' => true]) ?>
+        <?php if ($model->profile_picture): ?>
+            <img src="<?= $model->profile_picture ?>" alt="Profile Picture" style="max-width: 200px;">
+        <?php endif; ?>
+         <p><?= Html::a('Back to Dashboard', ['site/dashboard'], ['class' => 'btn btn-primary']) ?></p>
+    <?php ActiveForm::end(); ?>
 </div>

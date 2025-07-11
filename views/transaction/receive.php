@@ -3,7 +3,29 @@ use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 ?>
 <div class="transaction-receive">
-    <h1>Receive Money - <?= Html::encode($service) ?></h1>
+     <?php
+    echo '<h1>Receved Transaction </h1> ';
+    $logoPath = Yii::getAlias('@web') . '../../web/images/';
+
+    if ($service == 'mix-by-yas') {
+
+        echo '<img src="' . $logoPath .'mixx.png" alt="Mix by Yas Logo" style="height: 60px;">';
+
+    } elseif ($service == 'halopesa') {
+
+        echo '<img src="' . $logoPath .'halo.png" alt="HaloPesa Logo" style="height: 60px;">';
+
+    } elseif ($service == 'airtel-money') {
+
+         echo '<img src="' . $logoPath .'airtel.png" alt="Airtel Money Logo" style="height: 60px;">';
+    } elseif ($service == 'm-pesa') {
+
+         echo '<img src="' . $logoPath .'m-pesa.png" alt="M-Pesa Logo" style="height: 60px;">';
+    } else {
+
+        echo '<h1>Daily Transactions - ' . Html::encode($service) . '</h1>';
+    }
+    ?>
     <?php if (Yii::$app->session->hasFlash('success')): ?>
         <div class="alert alert-success">
             <?= Yii::$app->session->getFlash('success') ?>
@@ -22,7 +44,17 @@ use yii\bootstrap4\ActiveForm;
                     <?= Html::submitButton('Record Transaction', ['class' => 'btn btn-primary']) ?>
                 </div>
             <?php ActiveForm::end(); ?>
+            
         </div>
     </div>
-    <p><?= Html::a('Back to ' . $service, ['transaction/' . strtolower(str_replace(' ', '-', $service))], ['class' => 'btn btn-secondary']) ?></p>
+     <?php
+        $serviceRoute = [
+            'm-pesa' => 'mpesa',
+            'halopesa' => 'halopesa',
+            'mix-by-yas' => 'mix-by-yas',
+                    'airtel-money' => 'airtel-money',
+        ];
+        $route = $serviceRoute[$service] ?? strtolower(str_replace(' ', '-', $service));
+        ?>
+    <p><?= Html::a('Back to ' . $service, ['transaction/' . $route], ['class' => 'btn btn-secondary']) ?></p>
 </div>

@@ -44,11 +44,20 @@ $config = [
         'db' => $db,
         
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
+    'enablePrettyUrl' => true,
+    'showScriptName' => false,
+    'rules' => [
+        'transaction/<service:\w+>/graphs-dashboard' => 'transaction/graphs-dashboard',
+        'transaction/<service:\w+>/receive' => 'transaction/receive',
+        'transaction/<service:\w+>/send' => 'transaction/send',
+        'transaction/<service:\w+>/daily' => 'transaction/daily',
+        'transaction/<service:\w+>/hourly-graphs' => 'transaction/hourly-graphs',
+        'transaction/<service:\w+>/daily-graphs' => 'transaction/daily-graphs',
+        'transaction/<service:\w+>/weekly-graphs' => 'transaction/weekly-graphs',
+        'transaction/<service:\w+>/monthly-graphs' => 'transaction/monthly-graphs',
+        'transaction/download-graph' => 'transaction/download-graph',
+    ],
+],
         
     ],
     'params' => $params,
